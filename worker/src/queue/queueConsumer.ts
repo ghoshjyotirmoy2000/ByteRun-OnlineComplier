@@ -15,6 +15,9 @@ export const requestShutdown = () => {
 export const startQueueConsumer = async () => {
   await redisClient.connect();
 
+  console.log("Redis Connected...");
+  console.log("Queue consumer started...");
+
   while (!isShuttingDown) {
     try {
       const response = await redisClient.rPop(QUEUE_KEY);

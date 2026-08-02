@@ -9,8 +9,7 @@ socket.onmessage = (event) => {
 };
 
 export function authenticateSocket(userId: string) {
-  const send = () =>
-    socket.send(JSON.stringify({ type: "AUTH", userId }));
+  const send = () => socket.send(JSON.stringify({ type: "AUTH", userId }));
 
   if (socket.readyState === WebSocket.OPEN) {
     send();

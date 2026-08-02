@@ -2,7 +2,7 @@ import type { RunResult, SubmissionJob } from "../types";
 import { runDocker } from "./docker/docker.runner";
 
 export const runJavascript = async (job: SubmissionJob): Promise<RunResult> => {
-  console.log("Running JavaScript code in Docker...");
+  console.log("Running JavaScript code inside Docker...");
 
   const startTime = Date.now();
 
@@ -12,6 +12,7 @@ export const runJavascript = async (job: SubmissionJob): Promise<RunResult> => {
       containerName: `submission-${job.submissionId}`,
       command: ["node", "-e", job.code],
       timeoutMs: 5000,
+      stdin: job.input,
     });
 
     const executionTime = Date.now() - startTime;

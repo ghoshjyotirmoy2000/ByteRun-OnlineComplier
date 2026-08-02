@@ -100,6 +100,9 @@ export function DashboardPage() {
               placeholder="stdin passed to your program (optional)"
               className="w-full resize-none rounded-md border border-slate-300 bg-white p-3 font-mono text-sm text-slate-900 outline-none focus:border-indigo-500"
             />
+            <p className="text-xs text-slate-500">
+              Separate values with spaces or newlines to match how your program reads stdin (e.g. Scanner.nextInt in Java, cin in C++).
+            </p>
           </div>
 
           <div className="flex flex-col gap-1.5">

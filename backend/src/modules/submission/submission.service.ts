@@ -1,15 +1,14 @@
 import { prisma } from "../../config/prisma";
-import { redisClient } from "../../config/redisQueue";
+import { redisQueue } from "../../config/redisQueue";
 import { CodeSchemaDto } from "./submission.validation";
 
 class SubmissionService {
-  public async SubmitCodeService(userId: string, data: CodeSchemaDto) {
+  public async sendCodetoQueue(userId: string, data: CodeSchemaDto) {
     const { language, input } = data;
     const submission = await prisma.submission.create({
-      data: { userId, language, input, status: "PENDING" },
-      select: { id: true },
+      data: { userId, language, input, status: "PENDING" }
     });
-    return submission.id;
+    return submission;
   }
 
   public async AddtoQueueService(
@@ -17,7 +16,7 @@ class SubmissionService {
     submissionId: string,
     data: CodeSchemaDto,
   ) {
-    await redisClient.lPush(
+    await redisQueue.lPush(
       "problems",
       JSON.stringify({ userId, submissionId, ...data }),
     );

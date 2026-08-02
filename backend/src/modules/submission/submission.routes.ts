@@ -7,7 +7,7 @@ import { asynchanlder } from "../../middleware/asynchandler";
 
 const router = Router();
 
-router.post("/run-code" , authenticate , validateRequest(CodeSchema) , asynchanlder(submissionController.runCodeController))
+router.post("/run-code" , authenticate , validateRequest(CodeSchema) , asynchanlder(submissionController.sendCodetoQueue))
 
 
 export default router;

@@ -5,6 +5,7 @@ interface DockerRunOptions {
   command: string[];
   containerName: string;
   timeoutMs?: number;
+  stdin?: string;
 }
 
 interface DockerRunResult {
@@ -24,6 +25,7 @@ export const runDocker = ({
   command,
   containerName,
   timeoutMs = 2000,
+  stdin,
 }: DockerRunOptions): Promise<DockerRunResult> => {
   return new Promise((resolve, reject) => {
     const docker = spawn("docker", [
@@ -33,6 +35,8 @@ export const runDocker = ({
       containerName,
 
       "--rm",
+
+      "--interactive",
 
       "--network",
       "none",
@@ -47,6 +51,9 @@ export const runDocker = ({
 
       ...command,
     ]);
+
+    docker.stdin.write(stdin ?? "");
+    docker.stdin.end();
 
     let stdout = "";
     let stderr = "";

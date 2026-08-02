@@ -1,10 +1,10 @@
 // redis server
 import { createClient } from "redis";
 
-export const redisClient = createClient({
+export const redisQueue = createClient({
   url: process.env.REDIS_URL,
 });
 
-redisClient.on("error", (err) => {
+redisQueue.on("error", (err) => {
   console.error("Redis Client Error:", err);
 });

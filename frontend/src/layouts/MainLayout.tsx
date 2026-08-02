@@ -1,15 +1,23 @@
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useLogout, useMe } from "../features/auth/hooks";
 import { Spinner } from "../components/Spinner";
+import { authenticateSocket } from "../lib/websockets";
 
 export function MainLayout() {
   const { data: user } = useMe();
   const logout = useLogout();
 
+  useEffect(() => {
+    if (user) {
+      authenticateSocket(user.id);
+    }
+  }, [user]);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <span className="text-lg font-semibold text-slate-900">
             LeetCode<span className="text-indigo-600">Clone</span>
           </span>
@@ -29,7 +37,7 @@ export function MainLayout() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-8">
+      <main className="mx-auto max-w-6xl px-4 py-8">
         <Outlet />
       </main>
     </div>

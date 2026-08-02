@@ -1,13 +1,36 @@
-
-
-
-// express server 
 import express from "express";
-import { redisClient } from "./config/redis";
+import cors from "cors";
+import { redisClient } from "./config/redisQueue";
+import { errorhanlder } from "./middleware/errorhandler";
+import authRoutes from "./modules/auth/auth.routes";
+import submissionRoutes from "./modules/submission/submission.routes";
+import submissionResultRoutes from "./internal/submissionresult/submissionresult.routes";
+
+
+import cookieParser from "cookie-parser";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
+
+app.use("/api/v1/auth" , authRoutes)
+app.use("/api/v1/submission" , submissionRoutes)
+
+// internal apis
+app.use("/api/v1/internal" , submissionResultRoutes)
 
 app.post("/submission" , (req, res) => {
     const userId = req.body.userId
@@ -30,19 +53,6 @@ app.post("/submission/:submissionId" , (req , res) => {
     
 })
 
-// starting server
-async function startServer() {
-  try {
-    await redisClient.connect();
+app.use(errorhanlder)
 
-    console.log("✅ Connected to Redis");
-
-    app.listen(3000, () => {
-      console.log("Server running on port 3000");
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-startServer();
+export default app;

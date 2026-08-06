@@ -21,7 +21,7 @@ export const runCode = async (job: SubmissionJob): Promise<RunResult> => {
     return {
       output: "",
       executionTime: 0,
-      error: "UNSUPPORTED_LANGUAGE",
+      error: "UNSUPPORTED_LANGUAGE",      
     };
   }
 

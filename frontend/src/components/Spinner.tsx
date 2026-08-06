@@ -25,8 +25,8 @@ export function Spinner({ className = "h-5 w-5" }: { className?: string }) {
 
 export function FullScreenLoader() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50">
-      <Spinner className="h-8 w-8 text-indigo-600" />
+    <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <Spinner className="h-8 w-8 text-indigo-400" />
     </div>
   );
 }

@@ -8,7 +8,14 @@ class ConnectionManager {
      console.log(`User ${userId} connected`);
   }
 
-  
+  public getConnection(userId: string) {
+    return this.connections.get(userId);
+  }
+
+  public removeConnection(userId: string) {
+    this.connections.delete(userId);
+    console.log(`User ${userId} disconnected`);
+  }
 }
 
 export default new ConnectionManager();

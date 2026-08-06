@@ -22,11 +22,12 @@ export function CodeEditor({ language, value, onChange }: CodeEditorProps) {
   return (
     <CodeMirror
       value={value}
-      height="420px"
+      height="100%"
       theme="dark"
       extensions={[languageExtensions[language]]}
       onChange={onChange}
       basicSetup={{ tabSize: 2 }}
+      className="h-full [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto"
     />
   );
 }

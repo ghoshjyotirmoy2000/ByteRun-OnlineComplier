@@ -1,6 +1,6 @@
 # Byte Run — Coding Compiler
 
-An online code judge platform, similar to LeetCode. Users submit code, a worker executes it in an isolated Docker container, and the result is streamed back to the browser in real time over WebSockets via Redis Pub/Sub.
+An online code judge platform, similar to Programizz. Users submit code, a worker executes it in an isolated Docker container, and the result is streamed back to the browser in real time over WebSockets via Redis Pub/Sub.
 
 ## Architecture
 
